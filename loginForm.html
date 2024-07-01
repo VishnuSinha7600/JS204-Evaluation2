@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: linear-gradient(black ,black , rgb(160, 29, 29));
+        }
+
+        div.container{
+            width: 1200px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            
+        }
+
+        form{
+          
+            width: 400px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            border-radius: 10px;
+            background-color: rgb(202, 175, 175);
+            margin: auto;
+        }
+
+        form input{
+            width: 80%;
+            height: 40px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 50px;
+            margin-left: 30px;
+            padding-left: 20px;
+        } 
+
+        form div div{
+            width: 100%;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+        
+        } 
+      div button{
+            width: 100px;
+            height: 35px;
+            font-size: 20px;
+            border-radius: 5px;
+            border: none;
+            font-family: sans-serif;
+            font-weight: bold;
+        } 
+
+        button:hover{
+        background-color: black;
+        color: white;
+       }
+
+        form div p{
+           font-size: 15px;
+           font-family: sans-serif;
+           display: flex;
+           word-spacing: 3px;
+           justify-content: center;
+           align-items: center;
+        
+        } 
+
+        form div p a{
+          margin-left: 7px;
+          
+        
+        } 
+
+        /* a{
+            margin: auto;
+            text-decoration: none;
+        } */
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <form action="#">
+            
+            <div>
+                
+                <input type="email" name="userEmail" id="email" placeholder="Enter your Email id">
+                <input type="password" name="password" id="password" placeholder="Enter your correct password">
+            
+                <div><button onclick="login()">Login</button></div>
+                    
+                    <p> Don't i have account <a href="showSingUpForm.html" onclick="showSingUpForm()"> SingUp</a></p>
+                    
+               
+            </div>
+        </form>
+    </div>
+</body>
+</html>

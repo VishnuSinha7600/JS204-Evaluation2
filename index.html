@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: linear-gradient(black ,black , rgb(160, 29, 29));
+       
+        }
+
+        nav{
+            background-color: rgb(169, 235, 235);
+            width: 100%;
+            margin: auto;
+            
+        }
+
+        nav div.container{
+           
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+            width: 1200px;
+            margin: auto;
+           
+        }
+
+        nav div.container h1{
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        nav div.container div{
+            display: flex;
+            gap: 20px;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        nav div.container a{
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(132, 48, 48);
+        }
+
+        nav div.container a:hover{
+           
+            color: rgb(232, 128, 220);
+        }
+
+        main{
+            width: 100%;
+            height: auto;
+           
+            margin: auto;
+            color: white;
+        }
+
+        main div.container{
+            width: 1200px;
+            margin: auto;
+        }
+
+        main div.container h1{
+            font-size: 2em;
+            font-family: sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+       
+        #bookingForm{
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            /* gap: 50px; */
+            width: 400px;
+            height: 500px;
+            border: 1px solid;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 26px;
+            border-radius: 10px;
+            background-color: aliceblue;
+        }
+
+        #bookingForm select{
+            display: block;
+            margin: auto;
+            width: 350px;
+            height: 40px;
+            border-radius: 5px;
+            font-size: 17px;
+            margin-bottom: 50px;
+
+        }
+
+        #bookingForm input{
+            display: block;
+            margin: auto;
+            border-radius: 5px;
+            width: 350px;
+           height: 35px;
+           font-size: 17px;
+           margin-bottom: 50px;
+
+       }
+
+       #bookingForm button{
+        display: block;
+        margin: auto;
+            /* margin-left: 40px; */
+            border-radius: 5px;
+            width: 60%;
+           height: 35px;
+           font-size: 17px;
+           margin-bottom: 50px;
+
+       }
+
+       #bookingForm button:hover{
+        background-color: black;
+        color: white;
+       }
+
+
+
+
+    </style>
+</head>
+<body>
+  
+    <nav>
+        <div class="container">
+            <h1><a href="index.html">Home</a></h1>
+
+            <div>
+                <div id="loginForm"><a href="loginForm.html">Login</a></div>
+                <div id="signUpForm"><a href="showSingUpForm.html">SignUp</a></div>
+        
+            </div>
+        </div>
+    </nav>
+
+   <main>
+
+    <div class="container">
+        <h1> Appointment Booking</h1>
+   
+    <div>
+        <div id="bookingForm">
+            <div>
+                <select name="" id="doctorSelect">
+                    <option value="Docoter">Select Docoter</option>
+                    <option value="">Dr. Mukesh Mahajan</option>
+                    <option value="">Dr. Kiran Shah</option>
+                    <option value="">Dr. Harbhajan Singh Ghai</option>
+                    <option value="">Dr. Nivratti Adate</option>
+                    <option value="">Dr. Rajesh Kakkar</option>
+                    <input type="datetime-local" name="" id="appointmentTime">
+                    <button onclick="bookAppointment()">Book Appointment</button>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="appointmentsList"></div>
+    </div>
+
+   </main>
+
+
+</body>
+
+<script>
+
+let doctors = [
+    {name :"Dr. Mukesh Mahajan"},
+    {name :"Dr. Kiran Shah"},
+    {name :"Dr. Harbhajan Singh Ghai"},
+    {name :"Dr. Nivratti Adate"},
+    {name :"Dr. Rajesh Kakkar"},
+    {name :"Dr. Pramod B. Umarji"},
+    {name :"Dr. Rajiv Soman"}
+
+]
+
+// get data karega local storage se
+function getData(key){
+   return JSON.parse(localStorage.getItem(key));
+}
+
+// set data
+
+function setData(key , data){
+    localStorage.setItem(key , JSON.stringify(data));
+}
+
+
+// signup 
+function SingUp(str){
+    let fullName = document.getElementById("fullName").value;
+    let email = document.getElementById("signupEmail").value;
+    let password = document.getElementById("signupPassword").value;
+    
+    let users = getData('users') || [] ;
+
+    let existsUser = users.find(user => user.email === email);
+
+    if(existsUser){
+        alert("User already exists");
+        return;
+    }
+
+    let newUser = {
+        id : users.length+1,
+        fullName : fullName,
+        email : email,
+        password : password,
+        role : "patient"
+
+    };
+
+    users.push(newUser);
+    setData('users', users);
+
+    showLoginForm();
+    alert('SignUp Sucssful');
+
+}
+
+function login(){
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+
+    let user = users.find(user => user.email === email && user.password === password);
+
+    if(user){
+        alert("welcome")
+    
+
+    setData('currentUser', user)
+    showAppropriateUI(user.role);
+
+    }else{
+        alert('Invalid email or password')
+    }
+
+}
+
+// signup login form
+
+function showSignUpForm(){
+
+    document.getElementById("loginForm").style.display = "none" ;
+    document.getElementById("signupForm").style.display = "block";
+
+}
+
+
+function showLoginForm(){
+    document.getElementById("singupForm").style.display = "none" ;
+    document.getElementById("loginForm").style.display = "block";
+
+}
+
+function showAppropriateUI(role){
+    if(role ===  'patient'){
+        document.getElementById('bookingForm').style.display = 'block';
+    }else if(role === 'doctor'){
+
+    }
+}
+
+
+function bookAppointment(){
+    let currentUser = getData('currentUser');
+    let doctor = document.getElementById('doctorSelect').value;
+
+    let appointmentTime = document.getElementById('appointmentTime').value;
+
+
+}
+
+function init(){
+
+}
+
+window.onload = init;
+
+
+
+
+
+// console.log(SingUp("ramesh"))
+
+
+</script>
+</html>
